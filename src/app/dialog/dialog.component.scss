@@ -1,0 +1,9 @@
+.dialog {
+  mat-form-field:not(:last-child) {
+    margin-right: 2rem;
+  }
+
+  mat-dialog-actions {
+    justify-content: space-between;
+  }
+}
