@@ -1,0 +1,55 @@
+<div class="dialog">
+  <h2 mat-dialog-title class="dialog_title">Edit task</h2>
+  <form [formGroup]="editTodoForm">
+    <mat-dialog-content class="dialog_content">
+      <mat-form-field floatLabel="auto" appearance="outline" class="form_element form_text">
+        <mat-label class="form_label">New title</mat-label>
+        <input
+          type="text"
+          matInput required
+          formControlName="title"
+          class="form_input"
+        />
+        <mat-hint class="form_hint">Field are required!</mat-hint>
+      </mat-form-field>
+      <mat-form-field
+        floatLabel="auto"
+        appearance="outline"
+        class="form_element form_date"
+      >
+        <mat-label class="form_label">New deadline</mat-label>
+        <input
+          [matDatepicker]="taskDate"
+          [min]="minDate"
+          matInput
+          required
+          formControlName="deadline"
+          class="form_input"/>
+        <mat-datepicker-toggle matSuffix [for]="taskDate"></mat-datepicker-toggle>
+        <mat-datepicker #taskDate></mat-datepicker>
+        <mat-hint class="form_hint">Field are required!</mat-hint>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="form_element form_priority">
+        <mat-label>New priority</mat-label>
+        <mat-select required formControlName="priority">
+          <mat-option value="critical">
+            <p style="color: red">Critical</p>
+          </mat-option>
+          <mat-option value="medium">
+            <p style="color: green">Medium</p>
+          </mat-option>
+          <mat-option value="low">
+            <p style="color: darkblue">Low</p>
+          </mat-option>
+        </mat-select>
+        <mat-hint class="form_hint">Field are required!</mat-hint>
+      </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions class="dialog_actions">
+      <button mat-raised-button mat-dialog-close [disabled]="disabled" (click)="edit()" class="dialog_button">Save</button>
+      <button mat-button mat-dialog-close class="dialog_button">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-dialog-actions>
+  </form>
+</div>

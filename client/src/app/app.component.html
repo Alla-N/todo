@@ -1,0 +1,15 @@
+<div class="container">
+  <app-header  [state]="state"></app-header>
+  <div class="main"  #wrapper>
+    <mat-sidenav-container class="main_container">
+      <mat-sidenav #sidenav [(opened)] = "state.opened" [mode]="menuMode" class="main_left">
+        <app-aside></app-aside>
+      </mat-sidenav>
+      <mat-sidenav-content class="main_right">
+        <app-main></app-main>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
+  <router-outlet></router-outlet>
+</div>
+

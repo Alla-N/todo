@@ -1,0 +1,22 @@
+.main {
+  margin-bottom: 3rem;
+
+  &_container {
+    height: 100%;
+  }
+
+  &_left,
+  &_right {
+    padding: 16px;
+  }
+
+  &_left {
+    background-color: #fafafa;
+    width: 300px;
+  }
+
+  &_right {
+    background-color: #fff;
+  }
+}
+
