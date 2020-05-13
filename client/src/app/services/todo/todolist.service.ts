@@ -25,7 +25,7 @@ export class TodoListService {
 
   getTodos(): Observable<Itodo[]> {
     return this.http.get<Itodo[]>(
-      '/api/todo', httpOptions)
+      'api/todo', httpOptions)
           .pipe(
             tap(() => console.log('Fetched todo')),
             catchError(this.handleError('getTodo', []))
@@ -37,7 +37,7 @@ export class TodoListService {
     headers.append('Content-type', 'application/json');
 
     return this.http.post<any>(
-      'http://localhost:8080/api/todo', form, {headers})
+      'api/todo', form, {headers})
       .pipe(
         catchError(this.handleError('addTodo', [])),
         map(res => res)
@@ -45,7 +45,15 @@ export class TodoListService {
   }
 
   updateTodo(id: string, todo: Itodo): Observable<any> {
-    return this.http.put<any>(`/api/todo/${id}`, todo, httpOptions)
+    return this.http.put<any>(`api/todo/${id}`, todo, httpOptions)
+      .pipe(
+        catchError(this.handleError<any>('updateTodo')),
+        map(res => res)
+      );
+  }
+
+  toggleTodo(id: string, todo: Itodo): Observable<any> {
+    return this.http.put<any>(`api/todo/${id}/complete`, todo, httpOptions)
       .pipe(
         catchError(this.handleError<any>('updateTodo')),
         map(res => res)
@@ -54,7 +62,7 @@ export class TodoListService {
 
   deleteTodo(id: string): Observable<any> {
     return this.http.delete(
-      `/api/todo/${id}`, httpOptions)
+      `api/todo/${id}`, httpOptions)
       .pipe(
         catchError(this.handleError<any>('deleteTodo')),
         map(res => res)

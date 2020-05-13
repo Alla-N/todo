@@ -6,7 +6,7 @@
       </button>
       <mat-form-field floatLabel="never">
         <mat-label class="form_label">Search</mat-label>
-        <input type="text" matInput/>
+        <input type="text" matInput (input) = onSearch($event)  />
         <mat-icon>search</mat-icon>&nbsp;&nbsp;
       </mat-form-field>
     </div>
@@ -14,24 +14,6 @@
       <button mat-button (click)="createTask()" class="navigation_button">
         <mat-icon matTooltip="Create new task">
           add_circle_outline
-        </mat-icon>
-      </button>
-      <button mat-button class="navigation_button">
-        <mat-icon
-          [matBadge]="tasksCompleted +'/'+ tasksToday"
-          matTooltip="Completed tasks today"
-          matBadgeOverlap="false"
-          [matBadgeHidden]="tasksToday === 0">
-          trending_up
-        </mat-icon>
-      </button>
-      <button mat-button class="navigation_button">
-        <mat-icon
-          [matBadge]="tasksOverdue"
-          matTooltip="Expired tasks"
-          matBadgeOverlap="false"
-          [matBadgeHidden]="tasksOverdue === 0">
-          schedule
         </mat-icon>
       </button>
     </div>

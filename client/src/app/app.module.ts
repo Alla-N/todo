@@ -18,6 +18,8 @@ import { EditComponent } from './components/edit/edit.component';
 import { TodoListService } from './services/todo/todolist.service';
 import { StoreService } from './services/store/store.service';
 
+import { TodosSearchPipe } from './pipes/filter.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +29,8 @@ import { StoreService } from './services/store/store.service';
     AsideComponent,
     HeaderComponent,
     MainComponent,
-    EditComponent
+    EditComponent,
+    TodosSearchPipe
   ],
   imports: [
     BrowserModule,

@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import Itodo from '../todo/Itodo';
-import { TodoListService } from '../todo/todolist.service';
-import { BehaviorSubject, Observable} from 'rxjs';
+import {TodoListService} from '../todo/todolist.service';
+import {BehaviorSubject, Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class StoreService{
+export class StoreService {
 
   todoList = new BehaviorSubject([]);
   messages = new BehaviorSubject('');
@@ -27,7 +27,7 @@ export class StoreService{
     this.todoService.addTodo(todo)
       .subscribe(data => {
         this.messages.next(data.message);
-        this.todoList.next([...this.todoList.getValue(), ...data.todo]);
+        this.todoList.next([...this.todoList.getValue(), data.todo]);
       });
   }
 
@@ -43,9 +43,30 @@ export class StoreService{
     this.todoService.updateTodo(id, form)
       .subscribe(data => {
         this.messages.next(data.message);
-        this.todoList.next(this.todoList.getValue().filter(i => i._id !== id));
+        this.todoList.next([...this.todoList.getValue().map(i => {
+          if (i._id === id) {
+            i = data.todo;
+            return i;
+          }else{
+            return i;
+          }
+        }), data.todo]);
       });
+  }
 
+  toggleTodoList(id, form): void {
+    this.todoService.toggleTodo(id, form)
+      .subscribe(data => {
+        this.messages.next(data.message);
+        this.todoList.next([...this.todoList.getValue().map(i => {
+          if (i._id === id) {
+            i.completed = data.todo.completed;
+            return i;
+          }else{
+            return i;
+          }
+        }), data.todo]);
+      });
   }
 
   getData(): Observable<Itodo[]> {

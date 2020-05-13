@@ -1,4 +1,5 @@
 import {Component, ElementRef, ViewChild, AfterViewInit, Output} from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -6,14 +7,23 @@ import {Component, ElementRef, ViewChild, AfterViewInit, Output} from '@angular/
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements AfterViewInit{
+
+  constructor(){}
+  search: string;
   title = 'todo';
   menuMode = 'side';
+
   @Output()
-  state = {
-    opened: false
+  appState = {
+    opened: false,
   };
 
   @ViewChild('wrapper') elem: ElementRef;
+
+  onSearch(search: string): void {
+    this.search = search;
+    console.log('Search from app - ', this.search);
+  }
 
   ngAfterViewInit() {
     if (this.elem.nativeElement.offsetWidth <= 700) {
@@ -22,7 +32,5 @@ export class AppComponent implements AfterViewInit{
       this.menuMode = 'side';
     }
   }
-
-  constructor(){}
 
 }

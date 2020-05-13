@@ -10,9 +10,10 @@ import { StoreService } from '../../services/store/store.service';
   styleUrls: ['./task.component.scss']
 })
 export class TaskComponent implements OnInit {
+  today = new Date();
   @Input() task;
   @Input() index;
-  @Input() state;
+  @Input() accordionState;
 
   constructor(
     private snackBar: MatSnackBar,
@@ -24,15 +25,15 @@ export class TaskComponent implements OnInit {
   }
 
   setStep(index: number) {
-    this.state.step = index;
+    this.accordionState.step = index;
   }
 
   nextStep() {
-    this.state.step++;
+    this.accordionState.step++;
   }
 
   prevStep() {
-    this.state.step--;
+    this.accordionState.step--;
   }
 
     deleteTask(message, action, event) {
@@ -51,6 +52,10 @@ export class TaskComponent implements OnInit {
         task: this.task
       }
     });
+  }
+
+  toggleTask(state) {
+    this.storeService.toggleTodoList(this.task._id, {completed: state});
   }
 
 }

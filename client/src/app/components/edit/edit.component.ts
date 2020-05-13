@@ -1,7 +1,7 @@
 import {Component, OnInit, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {FormControl, FormGroup} from '@angular/forms';
-import {TodoListService} from '../../services/todo/todolist.service';
+import {StoreService} from '../../services/store/store.service';
 
 @Component({
   selector: 'app-edit',
@@ -15,7 +15,7 @@ export class EditComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private todoService: TodoListService
+    private storeService: StoreService
   ) {
     this.editTodoForm = new FormGroup({
       title: new FormControl(this.data.task.title),
@@ -33,16 +33,8 @@ export class EditComponent implements OnInit {
 
   public edit() {
     if (this.editTodoForm.status === 'VALID') {
-      console.log(this.editTodoForm.value);
-      this.editTodoForm.controls.deadline.setValue((this.editTodoForm.value.deadline.toISOString()).split('T')[0]);
-      console.log(this.editTodoForm.value);
-      console.log(typeof this.editTodoForm.value.deadline);
-
-      this.todoService.updateTodo(this.data.task._id, this.editTodoForm.value)
-        .subscribe(data => {
-          alert(data.message);
-        });
-
+      this.editTodoForm.controls.deadline.setValue((this.editTodoForm.value.deadline.toDateString()));
+      this.storeService.editTodoList(this.data.task._id, this.editTodoForm.value);
     } else {
       alert('Form does not valid');
     }

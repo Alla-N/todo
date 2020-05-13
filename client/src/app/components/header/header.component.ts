@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CreateComponent } from '../create/create.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -9,13 +9,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  tasksToday = 5;
-  tasksCompleted = 0;
-  tasksOverdue = 2;
-
-  @Input() state;
+  @Input() appState;
 
   constructor(public dialog: MatDialog, private router: Router){
+  }
+
+  @Output() searchChange = new EventEmitter();
+
+  onSearch(event): void {
+    this.searchChange.emit(event.target.value);
+    console.log('From header - ', event.target.value);
   }
 
   ngOnInit(): void {}
@@ -25,7 +28,7 @@ export class HeaderComponent implements OnInit {
   }
 
   toggleSideBar() {
-    this.state.opened = !this.state.opened;
+    this.appState.opened = !this.appState.opened;
   }
 
 }

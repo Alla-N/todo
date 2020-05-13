@@ -20,7 +20,7 @@ export class CreateComponent implements OnInit {
     this.addTodoForm = new FormGroup({
       title: new FormControl(),
       deadline: new FormControl(),
-      priority: new FormControl(),
+      priority: new FormControl()
     });
   }
 
@@ -32,7 +32,7 @@ export class CreateComponent implements OnInit {
 
   public add() {
     if (this.addTodoForm.status === 'VALID'){
-      this.addTodoForm.controls.deadline.setValue((this.addTodoForm.value.deadline.toISOString()).split('T')[0]);
+      this.addTodoForm.controls.deadline.setValue((this.addTodoForm.value.deadline.toDateString()));
       this.storeService.addTodoList(this.addTodoForm.value);
     }else{
       alert('Form does not valid');

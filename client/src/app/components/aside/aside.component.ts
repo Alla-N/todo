@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import { FilterService } from '../../services/filters/filter.service';
 
 @Component({
   selector: 'app-aside',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AsideComponent implements OnInit {
 
-  constructor() { }
+  constructor(private filterService: FilterService) { }
 
   ngOnInit(): void {
+  }
+
+  changeFilter(filter) {
+    this.filterService.setFilter(filter);
   }
 
 }

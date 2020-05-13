@@ -1,13 +1,17 @@
-<mat-expansion-panel [expanded]="state.step === index" (opened)="setStep(index)">
+<mat-expansion-panel
+  [expanded]="accordionState.step === index"
+  (opened)="setStep(index)"
+  [ngStyle]="{'background-color': task.completed? 'lightgreen': (task.deadline < today ? 'lightpink' : 'lightgray')}"
+>
   <mat-expansion-panel-header>
     <mat-panel-title>{{'Task number ' + (+index + 1)}}</mat-panel-title>
     <mat-panel-description>
-      {{task.title}}
+      <mat-icon [class]="task.priority" [matTooltip]="'Task priority:&nbsp;&nbsp;' + task.priority">flag</mat-icon>&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;{{task.title}}
     </mat-panel-description>
   </mat-expansion-panel-header>
   <mat-card-content>
-    <mat-icon [class]="task.priority" [matTooltip]="'Task priority:&nbsp;&nbsp;' + task.priority">flag</mat-icon>&nbsp;&nbsp;
-    <mat-checkbox [(ngModel)]="task.completed" labelPosition="before">
+    <mat-checkbox [(ngModel)]="task.completed" (change)="toggleTask(task.completed)" labelPosition="before">
       {{task.title}}
     </mat-checkbox>
     <br/>
