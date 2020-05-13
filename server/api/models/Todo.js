@@ -5,7 +5,7 @@ const TodoSchema = new Schema({
   userId: {type: String, required: true},
   title: {type: String, required: true},
   completed: {type: Boolean, required: true},
-  deadline: {type: Date, required: true},
+  deadline: {type: String, required: true},
   priority: {type: String, required: true},
 });
 

@@ -30,12 +30,12 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.json({extended: true}));
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/dist/todo'));
 
 
-// app.get('/*', function(req,res) {
-//   res.sendFile(path.join(__dirname+'/public/index.html'));
-// });
+app.get('/*', function(req,res) {
+  res.sendFile(path.join(__dirname+'/dist/todo/index.html'));
+});
 
 
 

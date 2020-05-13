@@ -23,7 +23,7 @@ router.post('/todo', async (req, res) => {
             userId: '1',
             title: req.body.title,
             completed: false,
-            deadline: new Date(Date.parse(req.body.deadline)),
+            deadline: req.body.deadline,
             priority: req.body.priority,
         });
 
@@ -31,6 +31,7 @@ router.post('/todo', async (req, res) => {
 
         res.status(200).json({todo: newTodo, message: 'New task created'});
     } catch (e) {
+        console.log(e);
         res.status(500).json({message: e.name})
     }
 
@@ -39,8 +40,7 @@ router.post('/todo', async (req, res) => {
 router.put('/todo/:id', async (req, res) => {
     try {
         const {id} = req.params;
-        const {title, priority} = req.body;
-        const deadline = new Date(Date.parse(req.body.deadline));
+        const {title, deadline, priority} = req.body;
 
         await Todo.findByIdAndUpdate(id,
             {
@@ -48,12 +48,37 @@ router.put('/todo/:id', async (req, res) => {
                 deadline: deadline,
                 priority: priority
             },
+            {new: true, useFindAndModify: false},
             function (err, result) {
                 if (err) {
                     console.log(err);
                     res.status(404).json({status: err.name});
                 } else {
-                    res.status(200).json({message: 'Edit is successful'});
+                    res.status(200).json({todo: result, message: 'Edit is successful'});
+                }
+            });
+    } catch (e) {
+        console.log(e);
+        res.status(500).json({message: e.name})
+    }
+});
+
+router.put('/todo/:id/complete', async (req, res) => {
+    try {
+        const {id} = req.params;
+        const {completed} = req.body;
+
+        await Todo.findByIdAndUpdate(id,
+            {
+                completed: completed
+            },
+            {new: true, useFindAndModify: false},
+            function (err, result) {
+                if (err) {
+                    console.log(err);
+                    res.status(404).json({status: err.name});
+                } else {
+                    res.status(200).json({todo: result, message: 'Edit is successful'});
                 }
             });
     } catch (e) {
