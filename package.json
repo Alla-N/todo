@@ -32,6 +32,7 @@
     "mongoose": "^5.9.13",
     "path": "^0.12.7",
     "rxjs": "~6.5.4",
+    "rxjs-compat": "^6.5.5",
     "tslib": "^1.10.0",
     "typescript": "~3.8.3",
     "zone.js": "~0.10.2"
