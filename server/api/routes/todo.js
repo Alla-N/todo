@@ -75,7 +75,6 @@ router.put('/todo/:id/complete', async (req, res) => {
             {new: true, useFindAndModify: false},
             function (err, result) {
                 if (err) {
-                    console.log(err);
                     res.status(404).json({status: err.name});
                 } else {
                     res.status(200).json({todo: result, message: 'Edit is successful'});

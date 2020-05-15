@@ -31,15 +31,11 @@ app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.json({extended: true}));
 app.use(express.static(__dirname + '/dist/todo'));
-
+app.use('/api', todoRouter);
 
 app.get('/*', function(req,res) {
   res.sendFile(path.join(__dirname+'/dist/todo/index.html'));
 });
-
-
-
-app.use('/api', todoRouter);
 
 
 // Start the app by listening on the default Heroku port

@@ -8,6 +8,8 @@ const httpOptions = {
   headers: new HttpHeaders({'Content-type': 'application/json'})
 };
 
+const url = 'http://localhost:8080/';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -17,17 +19,16 @@ export class TodoListService {
 
   private handleError<T>(operation = 'operation', result?: T) {
   return(error: any): Observable<T> => {
-    alert(error.name);
-    console.error(error);
+    console.error('Error -', error);
     return of(result as T);
   };
   }
 
   getTodos(): Observable<Itodo[]> {
     return this.http.get<Itodo[]>(
-      'api/todo', httpOptions)
+      `${url}api/todo`, httpOptions)
           .pipe(
-            tap(() => console.log('Fetched todo')),
+            tap(() => console.log('Get todo')),
             catchError(this.handleError('getTodo', []))
           );
   }
@@ -37,7 +38,7 @@ export class TodoListService {
     headers.append('Content-type', 'application/json');
 
     return this.http.post<any>(
-      'api/todo', form, {headers})
+      `${url}api/todo`, form, {headers})
       .pipe(
         catchError(this.handleError('addTodo', [])),
         map(res => res)
@@ -45,7 +46,7 @@ export class TodoListService {
   }
 
   updateTodo(id: string, todo: Itodo): Observable<any> {
-    return this.http.put<any>(`api/todo/${id}`, todo, httpOptions)
+    return this.http.put<any>(`${url}api/todo/${id}`, todo, httpOptions)
       .pipe(
         catchError(this.handleError<any>('updateTodo')),
         map(res => res)
@@ -53,7 +54,8 @@ export class TodoListService {
   }
 
   toggleTodo(id: string, todo: Itodo): Observable<any> {
-    return this.http.put<any>(`api/todo/${id}/complete`, todo, httpOptions)
+    console.log('Id from todo service', id);
+    return this.http.put<any>(`${url}api/todo/${id}/complete`, todo, httpOptions)
       .pipe(
         catchError(this.handleError<any>('updateTodo')),
         map(res => res)
@@ -62,7 +64,7 @@ export class TodoListService {
 
   deleteTodo(id: string): Observable<any> {
     return this.http.delete(
-      `api/todo/${id}`, httpOptions)
+      `${url}api/todo/${id}`, httpOptions)
       .pipe(
         catchError(this.handleError<any>('deleteTodo')),
         map(res => res)

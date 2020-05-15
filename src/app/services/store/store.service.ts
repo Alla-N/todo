@@ -46,11 +46,12 @@ export class StoreService {
         this.todoList.next([...this.todoList.getValue().map(i => {
           if (i._id === id) {
             i = data.todo;
+            i.deadline = new Date(data.todo.deadline);
             return i;
           }else{
             return i;
           }
-        }), data.todo]);
+        })]);
       });
   }
 
@@ -65,7 +66,7 @@ export class StoreService {
           }else{
             return i;
           }
-        }), data.todo]);
+        })]);
       });
   }
 

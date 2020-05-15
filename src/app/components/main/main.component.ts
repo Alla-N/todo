@@ -28,40 +28,31 @@ export class MainComponent implements OnInit {
     });
 
     this.filterService.getFilter().subscribe(data => {
-      console.log(data);
       this.filterTodo(data);
     });
   }
 
   ngOnInit(): void {
-    console.log(this.search);
   }
 
   filterTodo(data) {
-    console.log('Filter works');
     switch (data) {
       case 'today':
-        console.log('Filter: today');
         this.showList = this.todoList.filter(i => i.deadline === new Date());
         break;
       case 'upcoming':
-        console.log('Filter: upcoming');
         this.showList = this.todoList.filter(i => i.deadline > new Date());
         break;
       case 'expired':
-        console.log('Filter: expired');
         this.showList = this.todoList.filter(i => i.deadline < new Date());
         break;
       case 'completed':
-        console.log('Filter: completed');
         this.showList = this.todoList.filter(i => i.completed === true);
         break;
       case 'uncompleted':
-        console.log('Filter: completed');
         this.showList = this.todoList.filter(i => i.completed !== true);
         break;
       default:
-        console.log('Filter: no filter');
         this.showList = this.todoList;
         break;
     }
