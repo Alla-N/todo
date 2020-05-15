@@ -8,7 +8,8 @@ const httpOptions = {
   headers: new HttpHeaders({'Content-type': 'application/json'})
 };
 
-const url = 'http://localhost:8080/';
+// const url = 'http://localhost:8080/';
+const url = '';
 
 @Injectable({
   providedIn: 'root'
