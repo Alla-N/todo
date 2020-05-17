@@ -1,5 +1,5 @@
 <mat-expansion-panel
-  [expanded]="accordionState.step === index"
+  [expanded]="step === index"
   (opened)="setStep(index)"
   [ngStyle]="{'background-color': task.completed? 'lightgreen': (task.deadline < today ? 'lightpink' : 'lightgray')}"
 >

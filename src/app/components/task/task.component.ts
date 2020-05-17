@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog} from '@angular/material/dialog';
 import {EditComponent} from '../edit/edit.component';
@@ -13,7 +13,8 @@ export class TaskComponent implements OnInit {
   today = new Date();
   @Input() task;
   @Input() index;
-  @Input() accordionState;
+  @Input()step;
+  @Output() stepChange = new EventEmitter<number>();
 
   constructor(
     private snackBar: MatSnackBar,
@@ -25,15 +26,18 @@ export class TaskComponent implements OnInit {
   }
 
   setStep(index: number) {
-    this.accordionState.step = index;
+    this.step = index;
+    this.stepChange.emit(this.step);
   }
 
   nextStep() {
-    this.accordionState.step++;
+    this.step++;
+    this.stepChange.emit(this.step);
   }
 
   prevStep() {
-    this.accordionState.step--;
+    this.step--;
+    this.stepChange.emit(this.step);
   }
 
     deleteTask(message, action, event) {

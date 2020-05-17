@@ -1,0 +1,15 @@
+<div class="filters">
+  <h1 class="filters_title">Filters</h1>
+  <div class="filters_block" *ngFor="let filter of filtersArray" >
+    <button
+      mat-raised-button
+      class="filters_button"
+      [id]="filter.id"
+      (click)="changeFilter(filter.id)"
+      [color]="filter.active? 'accent': null"
+    >
+      <mat-icon>{{filter.matIcon}}</mat-icon>&nbsp;&nbsp;
+      {{filter.title}}
+    </button>
+  </div>
+</div>

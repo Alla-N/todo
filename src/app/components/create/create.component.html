@@ -41,7 +41,7 @@
       </mat-form-field>
   </mat-dialog-content>
   <mat-dialog-actions class="dialog_actions">
-    <button mat-raised-button mat-dialog-close [disabled]="disabled" (click)="add()" class="dialog_button">Save</button>
+    <button mat-raised-button mat-dialog-close [disabled]="addTodoForm.invalid"  (click)="add()" class="dialog_button">Save</button>
     <button mat-button mat-dialog-close class="dialog_button">
       <mat-icon>close</mat-icon>
     </button>

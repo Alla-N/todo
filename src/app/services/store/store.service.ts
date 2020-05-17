@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
-import Itodo from '../todo/Itodo';
+import Todo from '../todo/Todo';
 import {TodoListService} from '../todo/todolist.service';
 import {BehaviorSubject, Observable} from 'rxjs';
+import Filter from '../filters/Filter';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,44 @@ export class StoreService {
 
   todoList = new BehaviorSubject([]);
   messages = new BehaviorSubject('');
+  filtersArray = new BehaviorSubject<Filter[]>([
+    {
+      id: 'today',
+      matIcon: 'today',
+      title: 'Today tasks',
+      active: false,
+    },
+    {
+      id: 'upcoming',
+      matIcon: 'view_comfy',
+      title: 'Upcoming tasks',
+      active: false,
+    },
+    {
+      id: 'expired',
+      matIcon: 'history',
+      title: 'Expired tasks',
+      active: false,
+    },
+    {
+      id: 'completed',
+      matIcon: 'check_circle',
+      title: 'Completed tasks',
+      active: false,
+    },
+    {
+      id: 'uncompleted',
+      matIcon: 'error_outline',
+      title: 'Uncompleted tasks',
+      active: false,
+    },
+    {
+      id: 'clear',
+      matIcon: 'clear',
+      title: 'Clear filter',
+      active: false,
+    },
+  ]);
 
   constructor(private todoService: TodoListService) {
     this.getTodoList();
@@ -27,8 +66,10 @@ export class StoreService {
     this.todoService.addTodo(todo)
       .subscribe(data => {
         this.messages.next(data.message);
-        this.todoList.next([...this.todoList.getValue(), data.todo]);
-      });
+        const newTask = data.todo;
+        newTask.deadline = new Date(data.todo.deadline);
+        this.todoList.next([...this.todoList.getValue(), newTask]);
+  });
   }
 
   deleteTodoList(id): void {
@@ -70,12 +111,29 @@ export class StoreService {
       });
   }
 
-  getData(): Observable<Itodo[]> {
-    return this.todoList;
+  getData(): Observable<Todo[]> {
+    return this.todoList.asObservable();
   }
 
   getMessages(): Observable<any> {
-    return this.messages;
+    return this.messages.asObservable();
+  }
+
+  getFiltersArray(): Observable<any> {
+    return this.filtersArray.asObservable();
+  }
+
+  setActiveFilter(id) {
+    this.filtersArray.next([...this.filtersArray.getValue().map(i => {
+        if (i.id === id) {
+          i.active = true;
+          return i;
+        } else {
+          i.active = false;
+          return i;
+        }
+      }
+    )]);
   }
 
 }

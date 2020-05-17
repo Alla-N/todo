@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
-import Itodo from '../../services/todo/Itodo';
+import Todo from '../../services/todo/Todo';
 import { StoreService } from '../../services/store/store.service';
 import { FilterService } from '../../services/filters/filter.service';
 
@@ -9,15 +9,12 @@ import { FilterService } from '../../services/filters/filter.service';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
-  todoList: Itodo[];
-  showList: Itodo[];
+  todoList: Todo[];
+  showList: Todo[];
   filter: string;
-  @Output()
-  accordionState = {
-    step: -1
-  };
+  step = -1;
 
-  @Input() appState;
+
   @Input() search;
 
   constructor(private storeService: StoreService, private filterService: FilterService) {
@@ -28,6 +25,7 @@ export class MainComponent implements OnInit {
     });
 
     this.filterService.getFilter().subscribe(data => {
+      this.filter = data;
       this.filterTodo(data);
     });
   }

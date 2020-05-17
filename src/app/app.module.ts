@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 import { TaskComponent } from './components/task/task.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { CreateComponent } from './components/create/create.component';
-import { AsideComponent } from './components/aside/aside.component';
+import { FiltersComponent } from './components/filters/filters.component';
 import { HeaderComponent } from './components/header/header.component';
 import { MainComponent } from './components/main/main.component';
 import { EditComponent } from './components/edit/edit.component';
@@ -18,7 +18,7 @@ import { EditComponent } from './components/edit/edit.component';
 import { TodoListService } from './services/todo/todolist.service';
 import { StoreService } from './services/store/store.service';
 
-import { TodosSearchPipe } from './pipes/filter.pipe';
+import { TodosSearchPipe } from './pipes/search.pipe';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,7 @@ import { TodosSearchPipe } from './pipes/filter.pipe';
     TaskComponent,
     NotfoundComponent,
     CreateComponent,
-    AsideComponent,
+    FiltersComponent,
     HeaderComponent,
     MainComponent,
     EditComponent,

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import Itodo from './Itodo';
+import Todo from './Todo';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-type': 'application/json'})
@@ -24,8 +24,8 @@ export class TodoListService {
   };
   }
 
-  getTodos(): Observable<Itodo[]> {
-    return this.http.get<Itodo[]>(
+  getTodos(): Observable<Todo[]> {
+    return this.http.get<Todo[]>(
       `${url}api/todo`, httpOptions)
           .pipe(
             tap(() => console.log('Get todo')),
@@ -45,7 +45,7 @@ export class TodoListService {
       );
   }
 
-  updateTodo(id: string, todo: Itodo): Observable<any> {
+  updateTodo(id: string, todo: Todo): Observable<any> {
     return this.http.put<any>(`${url}api/todo/${id}`, todo, httpOptions)
       .pipe(
         catchError(this.handleError<any>('updateTodo')),
@@ -53,8 +53,7 @@ export class TodoListService {
       );
   }
 
-  toggleTodo(id: string, todo: Itodo): Observable<any> {
-    console.log('Id from todo service', id);
+  toggleTodo(id: string, todo: Todo): Observable<any> {
     return this.http.put<any>(`${url}api/todo/${id}/complete`, todo, httpOptions)
       .pipe(
         catchError(this.handleError<any>('updateTodo')),

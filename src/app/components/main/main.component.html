@@ -1,9 +1,9 @@
 <div class="tasks">
   <div>
-    <h1 class="tasks_title">Tasks&nbsp; {{appState.filter}}</h1>
+    <h1 class="tasks_title">Tasks&nbsp; {{filter}}</h1>
     <mat-accordion>
       <ng-container  *ngFor="let task of showList | todosSearch: search; let i=index ">
-        <app-task [task]="task" [index]="i" [accordionState]="accordionState"></app-task>
+        <app-task [task]="task" [index]="i" [(step)]="step"></app-task>
       </ng-container>
     </mat-accordion>
   </div>

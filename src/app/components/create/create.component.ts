@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { StoreService } from '../../services/store/store.service';
 
 @Component({
@@ -11,27 +11,23 @@ import { StoreService } from '../../services/store/store.service';
 export class CreateComponent implements OnInit {
   minDate = new Date();
   public addTodoForm: FormGroup;
-  disabled = true;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private storeService: StoreService
   ) {
     this.addTodoForm = new FormGroup({
-      title: new FormControl(),
-      deadline: new FormControl(),
-      priority: new FormControl()
+      title: new FormControl('', [Validators.required]),
+      deadline: new FormControl('', [Validators.required]),
+      priority: new FormControl('', [Validators.required])
     });
   }
 
   ngOnInit(): void {
-    this.addTodoForm.statusChanges.subscribe((status) => {
-      this.disabled = status !== 'VALID';
-    });
   }
 
   public add() {
-    if (this.addTodoForm.status === 'VALID'){
+    if (this.addTodoForm.valid){
       this.addTodoForm.controls.deadline.setValue((this.addTodoForm.value.deadline.toDateString()));
       this.storeService.addTodoList(this.addTodoForm.value);
     }else{

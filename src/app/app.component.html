@@ -1,15 +1,14 @@
 <div class="container">
-  <app-header  [appState]="appState" (searchChange)="onSearch($event)" ></app-header>
+  <app-header  [(opened)]="opened" (searchChange)="onSearch($event)" ></app-header>
   <div class="main"  #wrapper>
     <mat-sidenav-container class="main_container">
-      <mat-sidenav #sidenav [(opened)] = "appState.opened" [mode]="menuMode" class="main_left">
+      <mat-sidenav #sidenav [(opened)] = "opened" mode="side" class="main_left">
         <app-aside></app-aside>
       </mat-sidenav>
       <mat-sidenav-content class="main_right">
-        <app-main [appState]="appState" [search]="search"></app-main>
+        <app-main [search]="search"></app-main>
       </mat-sidenav-content>
     </mat-sidenav-container>
   </div>
-  <router-outlet></router-outlet>
 </div>
 

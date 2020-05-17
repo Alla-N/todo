@@ -9,7 +9,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  @Input() appState;
+
+  @Input() opened;
+  @Output() openedChange = new EventEmitter<boolean>();
 
   constructor(public dialog: MatDialog, private router: Router){
   }
@@ -28,7 +30,8 @@ export class HeaderComponent implements OnInit {
   }
 
   toggleSideBar() {
-    this.appState.opened = !this.appState.opened;
+    this.opened = !this.opened;
+    this.openedChange.emit(this.opened);
   }
 
 }

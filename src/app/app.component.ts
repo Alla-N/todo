@@ -1,36 +1,35 @@
-import {Component, ElementRef, ViewChild, AfterViewInit, Output} from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import {Component, ViewChild, HostListener } from '@angular/core';
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements AfterViewInit{
+export class AppComponent {
 
   constructor(){}
   search: string;
   title = 'todo';
   menuMode = 'side';
 
-  @Output()
-  appState = {
-    opened: false,
-  };
+  opened = false;
 
-  @ViewChild('wrapper') elem: ElementRef;
+  @ViewChild('sidenav') sidenav: MatSidenav;
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    if (event.target.innerWidth < 500) {
+      this.sidenav.mode = 'over';
+    } else {
+      this.sidenav.mode = 'side';
+    }
+  }
+
 
   onSearch(search: string): void {
     this.search = search;
     console.log('Search from app - ', this.search);
-  }
-
-  ngAfterViewInit() {
-    if (this.elem.nativeElement.offsetWidth <= 700) {
-      this.menuMode = 'over';
-    } else {
-      this.menuMode = 'side';
-    }
   }
 
 }

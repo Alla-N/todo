@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, Observable} from "rxjs";
-import Itodo from "../todo/Itodo";
+import {BehaviorSubject, Observable} from 'rxjs';
+import {StoreService} from '../store/store.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,14 +8,15 @@ import Itodo from "../todo/Itodo";
 export class FilterService {
   filter = new BehaviorSubject('');
 
-  constructor() { }
+  constructor(private storeService: StoreService) { }
 
   getFilter(): Observable<any> {
-    return this.filter;
+    return this.filter.asObservable();
   }
 
-  setFilter(value) {
-    this.filter.next(value);
+  setFilter(id) {
+    this.filter.next(id);
+    this.storeService.setActiveFilter(id);
   }
 
 }
