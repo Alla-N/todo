@@ -1,6 +1,10 @@
 .main {
   margin-bottom: 3rem;
 
+  mat-sidenav-container {
+    min-height: 80vh;
+  }
+
   &_container {
     height: 100%;
   }
