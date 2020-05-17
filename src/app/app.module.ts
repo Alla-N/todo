@@ -41,7 +41,7 @@ import { TodosSearchPipe } from './pipes/filter.pipe';
     MaterialModule,
     ReactiveFormsModule,
   ],
-  providers: [TodoListService, StoreService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
